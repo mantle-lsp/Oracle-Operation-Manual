@@ -1,0 +1,26 @@
+version: '3.4'
+
+x-healthcheck: &healthcheck
+  test: [ "CMD", "curl", "-sf", "http://localhost:9300/metrics" ]
+  interval: 5s
+  timeout: 5s
+  retries: 3
+  start_period: 30s
+
+services:
+  replica:
+    image: mantlenetworkio/mantle-lsp:v1.0.4
+    entrypoint: sh ./oracle
+    environment:
+      SERVICE_PRIVATE_KEY: <fixme>
+      RPC_URL: <fixme>
+      BEACON_NODE_URL: <fixme>
+      ORACLE_CONTRACT_ADDRESS: '0x4870BFEDE0d313629169750C125F9658E6EdfdB2'
+      ORACLE_QUORUM_CONTRACT_ADDRESS: '0x6D8852571FA959582840B000cA963AcFc97F18aC'
+      STAKING_CONTRACT_ADDRESS: '0x307770388c483BF225DCbe55EE5BA8b9d0bC5C1d'
+      CL_RETURNS_RECEIVER_ADDRESS: '0x9A0E047688e0Fd4Aa3252F9a9AfDD00BbB22601f'
+      PAUSER_CONTRACT_ADDRESS: '0xF1331e8aaEC8e7E9060530A1cd95377B2f02a11e'
+      CHAIN_ID: 1
+      LOG_LEVEL: debug
+    ports:
+      - ${VERIFIER_HTTP_PORT:-9300}:9300
