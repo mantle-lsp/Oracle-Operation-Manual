@@ -45,8 +45,10 @@ https://rpc.ankr.com/premium-http/eth_beacon/$(BEACON_API_AUTH_TOKEN_ANKER)
 
 
 #### changing the docker-compose.yml file accordingly 
-SERVICE_PRIVATE_KEY : private key of oracle EOA (with eth)
+SERVICE_PRIVATE_KEY : private key of oracle EOA (with eth) ,without "0x"
+
 RPC_URL: rpc of mainnet
+
 BEACON_NODE_URL : beacon api url
 
 
