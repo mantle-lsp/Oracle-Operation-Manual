@@ -10,11 +10,10 @@ x-healthcheck: &healthcheck
 services:
   replica:
     image: mantlenetworkio/mantle-lsp:v1.0.4
-    entrypoint: sh ./oracle
     environment:
-      SERVICE_PRIVATE_KEY: <fixme>
-      RPC_URL: <fixme>
-      BEACON_NODE_URL: <fixme>
+      SERVICE_PRIVATE_KEY: <fixme> #private key without 0x
+      RPC_URL: <fixme> #normal rpc for mainnet
+      BEACON_NODE_URL: <fixme> #beacon api url
       ORACLE_CONTRACT_ADDRESS: '0x4870BFEDE0d313629169750C125F9658E6EdfdB2'
       ORACLE_QUORUM_CONTRACT_ADDRESS: '0x6D8852571FA959582840B000cA963AcFc97F18aC'
       STAKING_CONTRACT_ADDRESS: '0x307770388c483BF225DCbe55EE5BA8b9d0bC5C1d'
