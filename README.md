@@ -29,7 +29,7 @@ You'll need to log out and log in again for this change to take effect.
 
 ####  Sending your EOA address of oralce to mantle to get approve to run a oralce 
 
-@jeremy.zhang@mantle.xyz
+jeremy.zhang@mantle.xyz
 
 
 
