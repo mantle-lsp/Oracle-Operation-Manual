@@ -61,8 +61,6 @@ docker-compose -f docker-compose.yml up -d
 Will start the node in a detatched shell (`-d`), meaning the node will continue to run in the background.
 You will need to run this again if you ever turn your machine off.
 
-The first time you start the node it synchronizes from regenesis (December 1th, 2022) to the present.
-This process takes hours.
 
 #### Stop
 
