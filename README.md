@@ -1,83 +1,59 @@
-# Simple Mantle LSP Oracle Node
+## Prerequisite Software
 
-## Required Software
+- [Docker](https://docs.docker.com/engine/install/)
 
-- [docker](https://docs.docker.com/engine/install/)
+## Suggested Hardware Configuration
 
-## Recommended Hardware
+- Minimum 8GB RAM
+- Minimum 500GB Storage (HDD acceptable, SSD recommended)
+- 5mb/s+ Internet Download Speed
 
-- 8GB+ RAM
-- 500GB+ disk (HDD works for now, SSD is better)
-- 5mb/s+ download
+## Installation and Configuration Guidelines
 
+### Docker Configuration for Non-Root Users (Optional)
 
-## Installation and Setup Instructions
+If you intend to operate Docker as a root user, you may bypass this section. For non-root user operations, ensure to include your user in the `docker` user group by executing the following command:
 
-### Configure Docker as a Non-Root User (Optional)
-
-If you're planning to run Docker as a root user, you can safely skip this step.
-However, if you're using Docker as a non-root user, you'll need to add yourself to the `docker` user group:
-
-```sh
+```
 sudo usermod -a -G docker `whoami`
 ```
 
-You'll need to log out and log in again for this change to take effect.
+Following this modification, a re-login is necessary for the changes to become effective.
 
+### Oracle Operation Procedure
 
-### run oracle
+1. Oracle Approval: Please reach out to Mantle LSP Team.
+2. Ethereum Account Funding: Deposit at least 1 Ether into your oracle's EOA.
+3. Beacon API Configuration: Obtain a Beacon API URL and update the `BEACON_NODE_URL` field in the configuration file.
 
-####  Sending your EOA address of oralce to mantle to get approve to run a oralce 
+   - Example Provider: Ankr [Beacon API](<https://rpc.ankr.com/premium-http/eth_beacon/$(BEACON_API_AUTH_TOKEN_ANKER)>) (https://rpc.ankr.com/premium-http/eth_beacon/$(BEACON_API_AUTH_TOKEN_ANKER))
 
-jeremy.zhang@mantle.xyz
+4. Docker Compose File Adjustment: Modify the `docker-compose.yml` file with the relevant details:
 
+   - `SERVICE_PRIVATE_KEY`: Private key of oracle EOA (without "0x" prefix)
+   - `RPC_URL`: Mainnet RPC URL
+   - `BEACON_NODE_URL`: Beacon API URL
 
+5. Oracle Initialization:
 
-####  Get some eth into your oracle EOA
-1 should be enough
-
-
-####  Get a beacon api url and replace in the config file  : BEACON_NODE_URL
-
-example: ankr
-https://rpc.ankr.com/premium-http/eth_beacon/$(BEACON_API_AUTH_TOKEN_ANKER)
-
-
-
-#### changing the docker-compose.yml file accordingly 
-SERVICE_PRIVATE_KEY : private key of oracle EOA (with eth) ,without "0x"
-
-RPC_URL: rpc of mainnet
-
-BEACON_NODE_URL : beacon api url
-
-
-#### start oralce
-
-```sh
-docker-compose -f docker-compose.yml up -d 
+```
+docker-compose -f docker-compose.yml up -d
 ```
 
-Will start the node in a detatched shell (`-d`), meaning the node will continue to run in the background.
-You will need to run this again if you ever turn your machine off.
+> The command initializes the node in a detached mode (`-d`), allowing continuous operation in the background. Re-execute this command following any system shutdown.
 
+1.  Oracle Termination:
 
-#### Stop
-
-```sh
+```
 docker-compose -f docker-compose.yml down
 ```
 
-Will shut down the node without wiping any volumes.
-You can safely run this command and then restart the node again.
+> This command halts the node operation without erasing any volumes. You can securely execute this command and re-initiate the node later.
 
-#### Logs
+1.  Log Monitoring:
 
-```sh
+```
 docker-compose logs <service name>
 ```
 
-Will display the logs for a given service.
-You can also follow along with the logs for a service in real time by adding the flag `-f`.
-
-
+> Access the logs for a specified service. Employ the `-f` flag to monitor logs for a service in real-time.
